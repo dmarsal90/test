@@ -17,12 +17,13 @@ class ProfileFactory extends Factory
     public function definition()
     {
         return [
+            'img'=>fake()->imageUrl(),
             'first_name' => fake()->name(),
             'last_name' => fake()->lastName(),
             'phone' => fake()->phoneNumber(),
-            'address' => fake()->address(),
+            'address' => fake()->streetAddress(),
             'city' => fake()->city(),
-            'state' => fake()->state(),
+            'state' => fake()->citySuffix(),
             'zipcode' => fake()->numberBetween(1, 1000),
             'available' => fake()->boolean(),
         ];
