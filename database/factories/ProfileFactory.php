@@ -17,8 +17,6 @@ class ProfileFactory extends Factory
     public function definition()
     {
         return [
-            'img' => "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinys
-            rgb&dpr=1&w=500",
             'first_name' => fake()->name(),
             'last_name' => fake()->lastName(),
             'phone' => fake()->phoneNumber(),
