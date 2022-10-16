@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Profile;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -26,6 +27,7 @@ class ProfileFactory extends Factory
             'state' => fake()->citySuffix(),
             'zipcode' => fake()->numberBetween(1, 1000),
             'available' => fake()->boolean(),
+            //'friends_id'=> Profile::all()->random()->id,
         ];
     }
 }

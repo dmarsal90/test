@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('img');
+            $table->string('img')->nullable();
             $table->string('first_name');
             $table->string('last_name');
             $table->integer('phone');
@@ -24,8 +24,10 @@ return new class extends Migration
             $table->string('state');
             $table->integer('zipcode');
             $table->boolean('available');
-            
+            $table->foreignId('friends_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('friends_id')->references('id')->on('friends');
         });
     }
 

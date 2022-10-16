@@ -10,10 +10,11 @@ class Profile extends Model
     use HasFactory;
 
 
-    protected $fillable= ['img','first_name','last_name', 'phone', 'address', 'çity','state','zipcode', 'aviable'];
+    protected $fillable = ['img', 'first_name', 'last_name', 'phone', 'address', 'city', 'state', 'zipcode', 'available', 'friends_id'];
 
 
-    public function friends(){
-        return $this->hasMany(profile::class,'profile_id'.'id');
+    public function friends()
+    {
+        return $this->hasMany(profile::class, 'friends' . 'id');
     }
 }
