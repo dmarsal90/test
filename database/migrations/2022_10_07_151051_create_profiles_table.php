@@ -24,10 +24,9 @@ return new class extends Migration
             $table->string('state');
             $table->integer('zipcode');
             $table->boolean('available');
-            $table->foreignId('friends_id')->nullable();
             $table->timestamps();
 
-            $table->foreign('friends_id')->references('id')->on('friends');
+            
         });
     }
 
