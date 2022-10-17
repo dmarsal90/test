@@ -62,7 +62,8 @@ class ProfileController extends Controller
     {
 
         $prof = Profiles::findOrFail($profile->id);
-        $result = DB::table('profile')->select('friends_id')->where('id', '=', $prof);
+
+        $result = DB::table('friends')->select('friends_id')->where('profile_id', '=', $prof);
 
         return json_encode($result);
     }
