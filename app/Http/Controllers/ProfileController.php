@@ -61,10 +61,13 @@ class ProfileController extends Controller
     public function getFriends(Profiles $profile)
     {
 
-        $prof = Profiles::findOrFail($profile->id);
+       // $prof = Profiles::findOrFail($profile->id);
 
-        $result = DB::table('friends')->select('friends_id')->where('profile_id', '=', $prof);
+        $result = DB::table('friends')
+        ->select('first_name')
+        ->join('profiles', 'friends.friend_id', '=', 'profiles.id')
+        ->where('profile_id', '=', $profile->id)->get();
 
-        return json_encode($result);
+        return json_encode($result->pluck('first_name'));
     }
 }
