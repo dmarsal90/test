@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('friends', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('profile_id')->references('id')->on('profile');
-            $table->foreignId('friend_id')->references('id')->on('profile');
+            $table->foreignId('profile_id')->references('id')->on('profiles');
+            $table->foreignId('friend_id')->references('id')->on('profiles');
             $table->timestamps();
         });
     }

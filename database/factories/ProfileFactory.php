@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Profile;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,14 +18,13 @@ class ProfileFactory extends Factory
     public function definition()
     {
         return [
-            'img' => "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinys
-            rgb&dpr=1&w=500",
+            'img'=>fake()->imageUrl(),
             'first_name' => fake()->name(),
             'last_name' => fake()->lastName(),
             'phone' => fake()->phoneNumber(),
-            'address' => fake()->address(),
+            'address' => fake()->streetAddress(),
             'city' => fake()->city(),
-            'state' => fake()->state(),
+            'state' => fake()->citySuffix(),
             'zipcode' => fake()->numberBetween(1, 1000),
             'available' => fake()->boolean(),
         ];

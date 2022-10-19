@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profile;
+use App\Models\Profiles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-
-        $profiles = Profile::all();
+        $profiles = Profiles::all();
         return json_encode($profiles);
     }
 
     public function store(Request $request)
     {
-        $profile = new Profile();
+        $profile = new Profiles();
         $profile->img = $request->img;
         $profile->first_name = $request->first_name;
         $profile->last_name = $request->last_name;
@@ -33,13 +32,13 @@ class ProfileController extends Controller
 
     public function show(Request $request)
     {
-        $profile = Profile::findOrFail($request->id);
+        $profile = Profiles::findOrFail($request->id);
         return json_encode($profile);
     }
 
     public function update(Request $request)
     {
-        $profile = Profile::findOrFail($request->id);
+        $profile = Profiles::findOrFail($request->id);
         $profile->img = $request->img;
         $profile->first_name = $request->first_name;
         $profile->last_name = $request->last_name;
@@ -55,16 +54,20 @@ class ProfileController extends Controller
 
     public function delete(Request $request)
     {
-        $profile = Profile::destroy($request->id);
+        $profile = Profiles::destroy($request->id);
         return $profile;
     }
 
-    public function getFriends(Request $request)
+    public function getFriends(Profiles $profile)
     {
 
-        $friends = Profile::findOrFail($request->id);
+       // $prof = Profiles::findOrFail($profile->id);
 
-        $result = DB::table('profile')->select('id')->where('profile_id', '=', $friends);
-        return json_encode($result);
+        $result = DB::table('friends')
+        ->select('first_name')
+        ->join('profiles', 'friends.friend_id', '=', 'profiles.id')
+        ->where('profile_id', '=', $profile->id)->get();
+
+        return json_encode($result->pluck('first_name'));
     }
 }
