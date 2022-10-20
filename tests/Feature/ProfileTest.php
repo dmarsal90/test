@@ -71,5 +71,49 @@ class ProfileTest extends TestCase
         ]); */
     }
 
+    /** @test */
 
+    public function a_profile_can_be_updated()
+    {
+        $data = [
+            'id'=> '100',
+            'img' => 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinys
+            rgb&dpr=1&w=500',
+            'first_name' => 'Steph',
+            'last_name' => 'Walters',
+            'phone' => '(820) 289-1818',
+            'address' => '5190 Center Court Drive',
+            'city' => 'Spring',
+            'state' => 'TX',
+            'zipcode' => '77370',
+            'available' => 'true',
+        ];
+
+        $response = $this->json('POST', '/api/profile', $data);
+        $response->assertOk();
+        $this->assertCount(1, Profile::all());
+
+        $profile = Profile::first();
+
+        $this->patch('/api/profile' . $profile->id, [
+            'img' => 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinys
+            rgb&dpr=1&w=500',
+            'first_name' => 'Steph',
+            'last_name' => 'Walters',
+            'phone' => '(820) 289-1818',
+            'address' => '5190 Center Court Drive',
+            'city' => 'Spring',
+            'state' => 'TX',
+            'zipcode' => '77370',
+            'available' => 'false',
+        ]);
+
+        $this->assertEquals('false', Profile::first()->available);
+
+
+    }
+
+    private function profile(string $string, array $array)
+    {
+    }
 }
