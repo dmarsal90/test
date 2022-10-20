@@ -96,7 +96,7 @@ class ProfileTest extends TestCase
 
         $profile = Profile::first();
 
-        $this->patch('/api/profile' . $profile->id, [
+        $this->patch('/api/profile' , $profile->id, [
             'img' => 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinys
             rgb&dpr=1&w=500',
             'first_name' => 'Steph',
@@ -119,7 +119,7 @@ class ProfileTest extends TestCase
     public function a_profile_can_be_deleted()
     {
         $profile = Profiles::first();
-        $this->delete('/api/profile' . $profile->id);
+        $this->delete('/api/profile' , $profile->id);
         $this->assertCount(0, Profile::all());
     }
 
