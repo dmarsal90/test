@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Profile;
+use App\Models\Profiles;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -111,6 +112,15 @@ class ProfileTest extends TestCase
         $this->assertEquals('false', Profile::first()->available);
 
 
+    }
+
+    /** @test */
+
+    public function a_profile_can_be_deleted()
+    {
+        $profile = Profiles::first();
+        $this->delete('/api/profile' . $profile->id);
+        $this->assertCount(0, Profile::all());
     }
 
     private function profile(string $string, array $array)
