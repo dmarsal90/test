@@ -25,6 +25,10 @@ class ProfileTest extends TestCase
         $response->assertStatus(200);
     }
 
+    private function profile(string $string, array $array)
+    {
+    }
+
     public function test_profile_should_be_able_to_construct(): void
     {
         $profile = new Profile();
@@ -120,10 +124,16 @@ class ProfileTest extends TestCase
     {
         $profile = Profiles::first();
         $this->delete('/api/profile' , $profile->id);
-        $this->assertCount(0, Profile::all());
+        $this->assertCount(0, Profiles::all());
     }
 
-    private function profile(string $string, array $array)
+    /** @test */
+    public function profile_has_all_the_required_data()
     {
+        // Arrange phase
+        Profile::factory()->count(3)->create(); // create 3 profiles
+
     }
+
+
 }
