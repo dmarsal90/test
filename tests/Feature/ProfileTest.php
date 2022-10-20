@@ -24,6 +24,12 @@ class ProfileTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_profile_should_be_able_to_construct(): void
+    {
+        $profile = new Profile();
+        $this->assertInstanceOf(Profile::class, $profile);
+    }
+
     /** @test*/
     public function canCreateAProfile()
     {
@@ -65,5 +71,5 @@ class ProfileTest extends TestCase
         ]); */
     }
 
-    
+
 }
