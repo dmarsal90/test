@@ -3,6 +3,8 @@
 namespace Tests\Unit;
 
 
+use App\Http\Controllers\ProfileController;
+use App\Models\Profile;
 use PHPUnit\Framework\TestCase;
 
 class BFSTest extends TestCase
@@ -19,6 +21,8 @@ class BFSTest extends TestCase
 
     public function testBFS()
     {
+        $controller = new ProfileController();
+        $graph =[];
         $bfs =  $this->action('GET','ProfileController@getShortestPath');
 
         $Graph = [
