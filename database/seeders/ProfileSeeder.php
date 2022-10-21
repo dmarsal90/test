@@ -10,7 +10,7 @@ class ProfileSeeder extends Seeder
 {
 
     public function randomProfiles(){
-        $profilesTotal= rand(1, 10);
+        $profilesTotal= rand(1, 20);
         return $profilesTotal;
     }
 
@@ -22,7 +22,7 @@ class ProfileSeeder extends Seeder
     //public function run($profilesTotal, $friendsTotal)
     public function run()
     {
-        Profile::factory(10)->create();
+        Profile::factory($this->randomProfiles())->create();
 
     }
 }

@@ -21,5 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('profile', ProfileController::class);
 Route::get('/profile/{profile}/friends', [ProfileController::class, 'getFriends']);
+Route::get('/profile/{profile1}/{profile2}/shortestPath', [ProfileController::class, 'getShortestPath']);
 
 //Route::get('/profile',['ProfileController@index']);
