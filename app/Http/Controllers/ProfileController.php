@@ -73,17 +73,10 @@ class ProfileController extends Controller
         return json_encode($result->pluck('first_name'));
     }
 
-    public function friends()
+    public function getShortestPath( Profile $profile1, Profile $profile2)
     {
-        $result = DB::table('friends')
-            ->select('first_name')
-            ->join('profiles', 'friends.friend_id', '=', 'profiles.id')
-            ->where('profile_id', '=', Profile::all()->id)->get();
-        return $result;
-    }
+        $friends = DB::table('friends')->get();
 
-    public function getShortestPath($graph, Profile $profile1, Profile $profile2)
-    {
         $queue = new SplQueue();
         # Enqueue the path
         $queue->enqueue([$profile1]);
@@ -100,7 +93,7 @@ class ProfileController extends Controller
                 return $path;
             }
 
-            foreach ($graph[$node] as $neighbour) {
+            foreach ($friends[$node] as $neighbour) {
                 if (!in_array($neighbour, $visited)) {
                     $visited[] = $neighbour;
 
