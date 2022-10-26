@@ -75,37 +75,36 @@ class ProfileController extends Controller
 
     public function getShortestPath( Profile $profile1, Profile $profile2)
     {
-       $friends = DB::table('friends')->get();
+        $friends = DB::table('friends')->get();
+
+        $persons = [];
+
+        foreach ($friends as $friend){
+            $persons[$friend->profile_id][] = $friend->friend_id;
+        }
 
         $queue = new SplQueue();
-        # Enqueue the path
-        $queue->enqueue([$profile1]);
-        $visited = [$profile1];
+        $queue->enqueue($profile1->id);
+        $visited = [$profile1->id];
 
         while ($queue->count() > 0) {
-            $path = $queue->dequeue();
+            $node = $queue->dequeue();
 
-            # Get the last node on the path
-            # so we can check if we're at the end
-            $node = $path[count($path) - 1];
-
-            if ($node === $profile2) {
-                return $path;
+            # We've found what we want
+            if ($node === $profile2->id) {
+                return $node->id;
             }
 
-            foreach ($friends[$node] as $neighbour) {
+            foreach ($persons[$node] as $neighbour) {
                 if (!in_array($neighbour, $visited)) {
+                    # Mark neighbour visited
                     $visited[] = $neighbour;
 
-                    # Build new path appending the neighbour then and enqueue it
-                    $new_path = $path;
-                    $new_path[] = $neighbour;
-
-                    $queue->enqueue($new_path);
+                    # Enqueue node
+                    $queue->enqueue($neighbour);
                 }
             }
         }
-
-        return "There is no connection between the profiles given";
+        echo 'There is no connection between the profiles given';
     }
 }
