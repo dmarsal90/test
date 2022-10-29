@@ -92,7 +92,7 @@ class ProfileController extends Controller
 
             # We've found what we want
             if ($node === $profile2->id) {
-                return $node->id;
+                return $node;
             }
 
             foreach ($persons[$node] as $neighbour) {
